@@ -1,7 +1,8 @@
 "use client";
 import Link from "next/link";
-import styles from "./css/navbar.module.css";
+// import styles from "./css/navbar.module.css";
 import api from "@/app/api/api";
+import Theme from "../theme/page";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -89,22 +90,22 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="shadow p-4 text-lg bg-primary-content">
+    <nav className="shadow p-4 text-lg">
       <div className="flex items-center">
-        <Link className={`${styles.nav_links} text-info-content`} href={"/"}>
+        <Link className={`nav_links text-xl text-info-content`} href={"/"}>
           Home
         </Link>
-        <div className="w-full flex justify-end">
+        <div className="w-full flex justify-end gap-5">
           {!user ? (
             <>
               <button
-                className="btn btn-primary text-lg me-4"
+                className="button_login"
                 onClick={() => document.getElementById("login").showModal()}
               >
                 Login
               </button>
               <button
-                className="btn btn-outline btn-success text-lg"
+                className="button_signUp"
                 onClick={() => document.getElementById("signUp").showModal()}
               >
                 Sign Up
@@ -141,6 +142,7 @@ export default function Navbar() {
               </ul>
             </details>
           )}
+          <Theme></Theme>
           <dialog id="login" className="modal">
             <div className="modal-box">
               <form method="dialog">

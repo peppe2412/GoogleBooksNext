@@ -7,7 +7,11 @@ export default function Home() {
 
   return (
     <>
-      <h1>Home</h1>
+      <header className="flex justify-center py-16">
+        <div className="grid grid-cols-1">
+          <h1 className="text-6xl">Books Next Commerce</h1>
+        </div>
+      </header>
     </>
   );
 }
