@@ -3,6 +3,7 @@ import Link from "next/link";
 // import styles from "./css/navbar.module.css";
 import api from "@/app/api/api";
 import Theme from "../theme/page";
+import Sidebar from "../sidebar/page";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -83,7 +84,7 @@ export default function Navbar() {
       localStorage.removeItem("token");
       delete api.defaults.headers.common["Authorization"];
       setUser(null);
-      navigate("/", { state: { message: response.data.message } });
+      route.push("/", { state: { message: response.data.message } });
     } catch (error) {
       console.error("Si è verificato un errore:", error);
     }
@@ -91,11 +92,16 @@ export default function Navbar() {
 
   return (
     <nav className="shadow p-4 text-lg">
-      <div className="flex items-center">
-        <Link className={`nav_links text-xl text-info-content`} href={"/"}>
-          Home
-        </Link>
-        <div className="w-full flex justify-end gap-5">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <Link
+            className={`nav_links text-xl text-info-content lg:block hidden`}
+            href={"/"}
+          >
+            Home
+          </Link>
+        </div>
+        <div className="flex gap-3 justify-end">
           {!user ? (
             <>
               <button
@@ -119,13 +125,13 @@ export default function Navbar() {
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
-                    stroke-width="1.5"
+                    strokeWidth="1.5"
                     stroke="currentColor"
-                    class="size-6"
+                    className="size-6"
                   >
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
                     />
                   </svg>
@@ -137,119 +143,122 @@ export default function Navbar() {
                   <a>Item 1</a>
                 </li>
                 <li>
-                  <button className="btn btn-error" onClick={handleLogout}>Logout</button>
+                  <button className="btn btn-error" onClick={handleLogout}>
+                    Logout
+                  </button>
                 </li>
               </ul>
             </details>
           )}
-          <Theme></Theme>
-          <dialog id="login" className="modal">
-            <div className="modal-box">
-              <form method="dialog">
-                {/* if there is a button in form, it will close the modal */}
-                <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-                  ✕
-                </button>
-              </form>
-              <div className="flex justify-center flex-col items-center">
-                <h3 className="font-bold text-lg text-center mb-7">Login</h3>
-                <form method="POST" onSubmit={handleLogin}>
-                  <div className="mb-5">
-                    <label htmlFor="email">Email</label>
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      name="email"
-                      className="input input-info input-sm"
-                    />
-                  </div>
-                  <div className="mb-5">
-                    <label htmlFor="password" className="block">
-                      Password
-                    </label>
-                    <input
-                      type="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      name="password"
-                      className="input input-info input-sm"
-                    />
-                  </div>
-                  <div>
-                    <button className="btn btn-outline btn-info" type="submit">
-                      Accedi
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </dialog>
-          <dialog id="signUp" className="modal">
-            <div className="modal-box">
-              <form method="dialog">
-                {/* if there is a button in form, it will close the modal */}
-                <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-                  ✕
-                </button>
-              </form>
-              <div className="flex justify-center flex-col items-center">
-                <h3 className="font-bold text-lg text-center mb-7">Sign Up</h3>
-                <form method="POST" onSubmit={handleRegister}>
-                  <div className="mb-5">
-                    <label htmlFor="username">Username</label>
-                    <input
-                      type="text"
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
-                      name="username"
-                      className="input input-info input-sm"
-                    />
-                  </div>
-                  <div className="mb-5">
-                    <label htmlFor="email">Email</label>
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      name="email"
-                      className="input input-info input-sm"
-                    />
-                  </div>
-                  <div className="mb-5">
-                    <label htmlFor="password" className="block">
-                      Password
-                    </label>
-                    <input
-                      type="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      name="password"
-                      className="input input-info input-sm"
-                    />
-                  </div>
-                  <div className="mb-5">
-                    <label htmlFor="password" className="block">
-                      Conferma Password
-                    </label>
-                    <input
-                      type="password"
-                      value={passwordConfirmation}
-                      onChange={(e) => setPasswordConfirmation(e.target.value)}
-                      name="password_confirmation"
-                      className="input input-info input-sm"
-                    />
-                  </div>
-                  <div>
-                    <button className="btn btn-outline btn-info" type="submit">
-                      Registrati
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </dialog>
+        <Sidebar></Sidebar>
+        <Theme></Theme>
         </div>
+        <dialog id="login" className="modal">
+          <div className="modal-box">
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                ✕
+              </button>
+            </form>
+            <div className="flex justify-center flex-col items-center">
+              <h3 className="font-bold text-lg text-center mb-7">Login</h3>
+              <form method="POST" onSubmit={handleLogin}>
+                <div className="mb-5">
+                  <label htmlFor="email">Email</label>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    name="email"
+                    className="input input-info input-sm"
+                  />
+                </div>
+                <div className="mb-5">
+                  <label htmlFor="password" className="block">
+                    Password
+                  </label>
+                  <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    name="password"
+                    className="input input-info input-sm"
+                  />
+                </div>
+                <div>
+                  <button className="btn btn-outline btn-info" type="submit">
+                    Accedi
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </dialog>
+        <dialog id="signUp" className="modal">
+          <div className="modal-box">
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                ✕
+              </button>
+            </form>
+            <div className="flex justify-center flex-col items-center">
+              <h3 className="font-bold text-lg text-center mb-7">Sign Up</h3>
+              <form method="POST" onSubmit={handleRegister}>
+                <div className="mb-5">
+                  <label htmlFor="username">Username</label>
+                  <input
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    name="username"
+                    className="input input-info input-sm"
+                  />
+                </div>
+                <div className="mb-5">
+                  <label htmlFor="email">Email</label>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    name="email"
+                    className="input input-info input-sm"
+                  />
+                </div>
+                <div className="mb-5">
+                  <label htmlFor="password" className="block">
+                    Password
+                  </label>
+                  <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    name="password"
+                    className="input input-info input-sm"
+                  />
+                </div>
+                <div className="mb-5">
+                  <label htmlFor="password" className="block">
+                    Conferma Password
+                  </label>
+                  <input
+                    type="password"
+                    value={passwordConfirmation}
+                    onChange={(e) => setPasswordConfirmation(e.target.value)}
+                    name="password_confirmation"
+                    className="input input-info input-sm"
+                  />
+                </div>
+                <div>
+                  <button className="btn btn-outline btn-info" type="submit">
+                    Registrati
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </dialog>
       </div>
     </nav>
   );

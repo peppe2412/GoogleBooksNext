@@ -3,6 +3,14 @@
   themes: all;
 }
 
+/* .button_login {
+  @apply hidden lg:block;
+}
+
+.button_signUp {
+  @apply hidden lg:block;
+} */
+
 [data-theme="night"] {
   nav {
     @apply bg-neutral;
@@ -24,6 +32,10 @@
 
   .button_signUp {
     @apply btn btn-outline btn-success text-xl;
+  }
+
+  .button_sidebar {
+    @apply btn btn-neutral;
   }
 }
 
@@ -48,5 +60,9 @@
 
   .button_signUp {
     @apply btn btn-success text-xl;
+  }
+
+  .button_sidebar {
+    @apply btn btn-info;
   }
 }
