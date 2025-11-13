@@ -12,9 +12,9 @@ export default function Sidebar() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const toggleSidebar = () => {
-    setOpen((prev) => !prev);
-  };
+  // const toggleSidebar = () => {
+  //   setOpen((prev) => !prev);
+  // };
 
   return (
     <>

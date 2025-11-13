@@ -37,6 +37,10 @@
   .button_sidebar {
     @apply btn btn-neutral;
   }
+
+  .button_search{
+    @apply btn btn-outline btn-success rounded-e-xl;
+  }
 }
 
 [data-theme="corporate"] {
@@ -64,5 +68,9 @@
 
   .button_sidebar {
     @apply btn btn-info;
+  }
+
+  .button_search {
+    @apply btn btn-soft btn-success;
   }
 }

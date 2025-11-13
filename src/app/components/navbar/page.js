@@ -93,12 +93,18 @@ export default function Navbar() {
   return (
     <nav className="shadow p-4 text-lg">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-7 ml-4">
           <Link
             className={`nav_links text-xl text-info-content lg:block hidden`}
             href={"/"}
           >
             Home
+          </Link>
+          <Link
+            className={`nav_links text-xl text-info-content lg:block hidden`}
+            href={"/books/index"}
+          >
+            Sfoglia
           </Link>
         </div>
         <div className="flex gap-3 justify-end">
